@@ -9,7 +9,7 @@ import (
 func TestGetToken(t *testing.T) {
 	newClient := client.NewClient("http://192.168.210.171:8080/guacamole/api", "guacadmin", "guacadmin")
 
-	_, _, err := newClient.GetToken()
+	_, err := newClient.Auth().Token()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -19,10 +19,10 @@ func TestGetToken(t *testing.T) {
 func TestGetConnectionList(t *testing.T) {
 	newClient := client.NewClient("http://192.168.210.171:8080/guacamole/api", "guacadmin", "guacadmin")
 
-	connList, err := newClient.ConnectionList()
+	connList, connMap, err := newClient.Connection().List()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	fmt.Println(connList)
+	fmt.Println(connList, connMap)
 }

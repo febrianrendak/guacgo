@@ -49,7 +49,7 @@ func (client *Client) NewRequest() *req.Request {
 		SetPathParam("data-source", client.tokenData.DataSource).
 		SetRetryCount(1).
 		AddRetryHook(func(resp *req.Response, err error) {
-			tokenResp, _, err := client.GetToken()
+			tokenResp, err := client.Auth().Token()
 			if err == nil {
 				client.tokenData = tokenResp
 
@@ -60,26 +60,4 @@ func (client *Client) NewRequest() *req.Request {
 		AddRetryCondition(func(resp *req.Response, err error) bool {
 			return err != nil || resp.StatusCode == 403
 		})
-}
-
-func (client *Client) GetToken() (vars.TokenResp, int, error) {
-	resp, err := client.c.R().
-		SetHeader("Content-Type", "application/x-www-form-urlencoded").
-		SetFormData(map[string]string{
-			"username": client.username,
-			"password": client.password,
-		}).Post("/tokens")
-
-	if err != nil {
-		return vars.TokenResp{}, resp.StatusCode, err
-	}
-
-	respJson := vars.TokenResp{}
-	if err := resp.UnmarshalJson(&respJson); err != nil {
-		return vars.TokenResp{}, resp.StatusCode, err
-	}
-
-	client.tokenData = respJson
-
-	return respJson, resp.StatusCode, err
 }
