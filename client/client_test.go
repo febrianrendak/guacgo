@@ -142,3 +142,64 @@ func TestCreateAndUpdateUser(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestGetUserGroupList(t *testing.T) {
+	newClient := PrepareClient()
+
+	userGroupList, mapOfUserGroups, err := newClient.UserGroup().List()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(userGroupList, mapOfUserGroups)
+}
+
+func TestGetUserGroupDetails(t *testing.T) {
+	newClient := PrepareClient()
+
+	userGroup, err := newClient.
+		UserGroup().
+		Details("MAIN")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(userGroup)
+}
+
+func TestGetUserGroupPermission(t *testing.T) {
+	newClient := PrepareClient()
+
+	permissions, err := newClient.
+		UserGroup().
+		Permissions("MAIN")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(permissions)
+}
+
+func TestUserGroupOperation(t *testing.T) {
+	newClient := PrepareClient()
+
+	err := newClient.
+		UserGroup().
+		ConnectionOperation("MAIN", "1", "add")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUserUserGroupOperation(t *testing.T) {
+	newClient := PrepareClient()
+
+	err := newClient.
+		User().
+		UserGroupOperation("febrian2@paques.id", "MAIN", "add")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}

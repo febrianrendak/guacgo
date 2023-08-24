@@ -73,3 +73,18 @@ func (u *User) Update(username, guacEmailAddress, guacFullName, disabled, passwo
 
 	return
 }
+
+// UserGroupOperation add or remove user from an group where OP either add or remove
+func (u *User) UserGroupOperation(username, userGroup, op string) (err error) {
+	_, err = u.NewRequest().
+		SetPathParam("username", username).
+		SetBody([]vars.Operation{
+			{
+				OP:    op,
+				Path:  "/",
+				Value: userGroup,
+			},
+		}).
+		Patch("/session/data/{data-source}/users/{username}/userGroups")
+	return
+}
