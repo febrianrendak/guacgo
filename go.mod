@@ -2,7 +2,10 @@ module guacamole
 
 go 1.21
 
-require github.com/imroc/req/v3 v3.41.6
+require (
+	github.com/google/uuid v1.3.1
+	github.com/imroc/req/v3 v3.41.6
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect

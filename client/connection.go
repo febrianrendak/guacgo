@@ -14,9 +14,9 @@ func (client *Client) Connection() *Connection {
 	}
 }
 
-func (connection *Connection) List() ([]vars.ConnectionResp, map[string]vars.ConnectionResp, error) {
-	mapOfConnections := make(map[string]vars.ConnectionResp)
-	listOfConnections := make([]vars.ConnectionResp, 0)
+func (connection *Connection) List() ([]vars.Connection, map[string]vars.Connection, error) {
+	mapOfConnections := make(map[string]vars.Connection)
+	listOfConnections := make([]vars.Connection, 0)
 	_, err := connection.
 		NewRequest().
 		SetSuccessResult(&mapOfConnections).
@@ -29,13 +29,13 @@ func (connection *Connection) List() ([]vars.ConnectionResp, map[string]vars.Con
 	return listOfConnections, mapOfConnections, err
 }
 
-func (connection *Connection) Create(name, parentIdentifier, protocol, hostname, port, guacdPort, guacdHost, guacdEncryption string) (vars.ConnectionResp, error) {
-	newConn := vars.ConnectionResp{}
+func (connection *Connection) Create(name, parentIdentifier, protocol, hostname, port, guacdHost, guacdPort, guacdEncryption string) (vars.Connection, error) {
+	newConn := vars.Connection{}
 	_, err := connection.
 		NewRequest().
 		SetSuccessResult(&newConn).
-		SetBody(&vars.ConnectionReq{
-			Connection: vars.Connection{
+		SetBody(&vars.ConnectionCreate{
+			ConnectionBasic: vars.ConnectionBasic{
 				Name:             name,
 				ParentIdentifier: parentIdentifier,
 				Protocol:         protocol,
@@ -57,12 +57,23 @@ func (connection *Connection) Create(name, parentIdentifier, protocol, hostname,
 	return newConn, err
 }
 
+func (connection *Connection) Details(identifier string) (vars.Connection, error) {
+	conn := vars.Connection{}
+	_, err := connection.
+		NewRequest().
+		SetSuccessResult(&conn).
+		SetPathParam("identifier", identifier).
+		Get("/session/data/{data-source}/connections/{identifier}")
+
+	return conn, err
+}
+
 func (connection *Connection) Update(identifier, name, parentIdentifier, protocol, hostname, port, guacdPort, guacdHost, guacdEncryption string) error {
 	_, err := connection.
 		NewRequest().
 		SetPathParam("identifier", identifier).
-		SetBody(&vars.ConnectionReq{
-			Connection: vars.Connection{
+		SetBody(&vars.ConnectionCreate{
+			ConnectionBasic: vars.ConnectionBasic{
 				Name:             name,
 				ParentIdentifier: parentIdentifier,
 				Protocol:         protocol,
