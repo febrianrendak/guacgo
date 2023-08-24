@@ -18,7 +18,7 @@ func (u *User) List() (userList []vars.User, mapOfUsers map[string]vars.User, er
 
 	_, err = u.NewRequest().
 		SetSuccessResult(&mapOfUsers).
-		Get("/session/data/{data-source}/users")
+		Get("/guacamole/api/session/data/{data-source}/users")
 
 	for _, user := range mapOfUsers {
 		userList = append(userList, user)
@@ -31,7 +31,7 @@ func (u *User) Details(username string) (user vars.User, err error) {
 	_, err = u.NewRequest().
 		SetSuccessResult(&user).
 		SetPathParam("username", username).
-		Get("/session/data/{data-source}/users/{username}")
+		Get("/guacamole/api/session/data/{data-source}/users/{username}")
 
 	return
 }
@@ -50,7 +50,7 @@ func (u *User) Create(username, guacEmailAddress, guacFullName, disabled, passwo
 				Disabled:         disabled,
 			},
 		}).
-		Post("/session/data/{data-source}/users")
+		Post("/guacamole/api/session/data/{data-source}/users")
 
 	return
 }
@@ -69,7 +69,7 @@ func (u *User) Update(username, guacEmailAddress, guacFullName, disabled, passwo
 				Disabled:         disabled,
 			},
 		}).
-		Put("/session/data/{data-source}/users/{username}")
+		Put("/guacamole/api/session/data/{data-source}/users/{username}")
 
 	return
 }
@@ -85,6 +85,6 @@ func (u *User) UserGroupOperation(username, userGroup, op string) (err error) {
 				Value: userGroup,
 			},
 		}).
-		Patch("/session/data/{data-source}/users/{username}/userGroups")
+		Patch("/guacamole/api/session/data/{data-source}/users/{username}/userGroups")
 	return
 }

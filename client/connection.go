@@ -20,7 +20,7 @@ func (connection *Connection) List() ([]vars.Connection, map[string]vars.Connect
 	_, err := connection.
 		NewRequest().
 		SetSuccessResult(&mapOfConnections).
-		Get("/session/data/{data-source}/connections")
+		Get("/guacamole/api/session/data/{data-source}/connections")
 
 	for _, conn := range mapOfConnections {
 		listOfConnections = append(listOfConnections, conn)
@@ -52,7 +52,7 @@ func (connection *Connection) Create(name, parentIdentifier, protocol, hostname,
 				Port:     port,
 			},
 		}).
-		Post("/session/data/{data-source}/connections")
+		Post("/guacamole/api/session/data/{data-source}/connections")
 
 	return newConn, err
 }
@@ -63,7 +63,7 @@ func (connection *Connection) Details(identifier string) (vars.Connection, error
 		NewRequest().
 		SetSuccessResult(&conn).
 		SetPathParam("identifier", identifier).
-		Get("/session/data/{data-source}/connections/{identifier}")
+		Get("/guacamole/api/session/data/{data-source}/connections/{identifier}")
 
 	return conn, err
 }
@@ -90,7 +90,7 @@ func (connection *Connection) Update(identifier, name, parentIdentifier, protoco
 				Port:     port,
 			},
 		}).
-		Put("/session/data/{data-source}/connections/{identifier}")
+		Put("/guacamole/api/session/data/{data-source}/connections/{identifier}")
 
 	return err
 }
@@ -99,7 +99,7 @@ func (connection *Connection) Delete(identifier string) error {
 	_, err := connection.
 		NewRequest().
 		SetPathParam("identifier", identifier).
-		Delete("/session/data/{data-source}/connections/{identifier}")
+		Delete("/guacamole/api/session/data/{data-source}/connections/{identifier}")
 
 	return err
 }

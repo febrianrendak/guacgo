@@ -8,7 +8,7 @@ import (
 )
 
 func PrepareClient() *client.Client {
-	return client.NewClient("http://192.168.210.171:8080/guacamole/api", "guacadmin", "guacadmin")
+	return client.NewClient("http://192.168.210.171:8080", "guacadmin", "guacadmin")
 }
 
 func TestGetToken(t *testing.T) {
