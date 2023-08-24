@@ -90,3 +90,55 @@ func TestConnectionGroupList(t *testing.T) {
 	fmt.Println(cgList)
 	fmt.Println(cgMap)
 }
+
+func TestUserLIst(t *testing.T) {
+	newClient := PrepareClient()
+
+	userList, mapOfUserList, err := newClient.User().List()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(userList, mapOfUserList)
+}
+
+func TestUserDetails(t *testing.T) {
+	newClient := PrepareClient()
+
+	user, err := newClient.User().Details("febrian@paques.id")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(user)
+}
+
+func TestCreateAndUpdateUser(t *testing.T) {
+	var err error
+	var newClient = PrepareClient()
+
+	user, err := newClient.User().Create(
+		"febrian2@paques.id",
+		"febrian2@gmail.com",
+		"Febrian Rendak",
+		"true",
+		"",
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(user)
+
+	err = newClient.User().Update(
+		"febrian2@paques.id",
+		"febrian2@gmail.com",
+		"Febrian Rendak",
+		"false",
+		"paques123",
+	)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
