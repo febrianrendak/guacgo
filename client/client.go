@@ -2,8 +2,8 @@ package client
 
 import (
 	"fmt"
+	"github.com/febrianrendak/guacgo/vars"
 	"github.com/imroc/req/v3"
-	"guacamole/vars"
 )
 
 type Client struct {

@@ -1,7 +1,7 @@
 package client
 
 import (
-	"guacamole/vars"
+	"github.com/febrianrendak/guacgo/vars"
 )
 
 type Connection struct {

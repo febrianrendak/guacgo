@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"guacamole/vars"
+	"github.com/febrianrendak/guacgo/vars"
 )
 
 type UserGroup struct {

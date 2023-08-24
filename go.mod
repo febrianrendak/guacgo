@@ -1,4 +1,4 @@
-module guacamole
+module github.com/febrianrendak/guacgo
 
 go 1.21
 

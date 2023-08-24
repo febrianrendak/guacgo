@@ -2,8 +2,8 @@ package client_test
 
 import (
 	"fmt"
+	"github.com/febrianrendak/guacgo/client"
 	"github.com/google/uuid"
-	"guacamole/client"
 	"testing"
 )
 

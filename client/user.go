@@ -1,6 +1,6 @@
 package client
 
-import "guacamole/vars"
+import "github.com/febrianrendak/guacgo/vars"
 
 type User struct {
 	*Client
