@@ -237,3 +237,26 @@ func TestGetActiveConnectionsAndKill(t *testing.T) {
 		}
 	}
 }
+
+func TestGetActiveConnectionsAndKillBulk(t *testing.T) {
+	newClient := PrepareClient()
+
+	activeConnectionList, mapOfActiveConnections, err := newClient.
+		ActiveConnection().
+		List()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(activeConnectionList, mapOfActiveConnections)
+
+	listOfIdentifier := make([]string, 0)
+	for id, _ := range mapOfActiveConnections {
+		listOfIdentifier = append(listOfIdentifier, id)
+	}
+
+	if err := newClient.ActiveConnection().Kills(listOfIdentifier); err != nil {
+		t.Fatal(err)
+	}
+}
