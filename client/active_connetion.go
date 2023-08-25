@@ -39,3 +39,20 @@ func (ac *ActiveConnection) Kill(identifier string) (err error) {
 
 	return
 }
+
+func (ac *ActiveConnection) Kills(identifiers []string) (err error) {
+	operations := make([]vars.Operation, 0)
+
+	for _, id := range identifiers {
+		operations = append(operations, vars.Operation{
+			OP:   "remove",
+			Path: fmt.Sprintf("/%s", id),
+		})
+	}
+
+	_, err = ac.NewRequest().
+		SetBody(operations).
+		Patch("/guacamole/api/session/data/{data-source}/activeConnections")
+
+	return
+}
