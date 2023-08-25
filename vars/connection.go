@@ -27,7 +27,8 @@ type ConnectionCreate struct {
 
 type Connection struct {
 	ConnectionBasic
-	Identifier        string `json:"identifier"`
-	ActiveConnections int    `json:"activeConnections"`
-	LastActive        int    `json:"lastActive"`
+	Identifier        string               `json:"identifier"`
+	ActiveConnections int                  `json:"activeConnections"`
+	LastActive        int                  `json:"lastActive"`
+	Parameters        ConnectionParameters `json:"parameters,omitempty"`
 }
