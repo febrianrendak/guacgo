@@ -217,3 +217,23 @@ func TestGetConnectionParameters(t *testing.T) {
 
 	fmt.Println(connAttributes)
 }
+
+func TestGetActiveConnectionsAndKill(t *testing.T) {
+	newClient := PrepareClient()
+
+	activeConnectionList, mapOfActiveConnections, err := newClient.
+		ActiveConnection().
+		List()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(activeConnectionList, mapOfActiveConnections)
+
+	for id, _ := range mapOfActiveConnections {
+		if err := newClient.ActiveConnection().Kill(id); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
