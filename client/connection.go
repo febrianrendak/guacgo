@@ -103,3 +103,13 @@ func (connection *Connection) Delete(identifier string) error {
 
 	return err
 }
+
+func (connection *Connection) Parameters(identifier string) (connectionParameters vars.ConnectionParameters, err error) {
+	_, err = connection.
+		NewRequest().
+		SetSuccessResult(&connectionParameters).
+		SetPathParam("identifier", identifier).
+		Get("/guacamole/api/session/data/{data-source}/connections/{identifier}/parameters")
+
+	return
+}

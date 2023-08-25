@@ -203,3 +203,17 @@ func TestUserUserGroupOperation(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestGetConnectionParameters(t *testing.T) {
+	newClient := PrepareClient()
+
+	connAttributes, err := newClient.
+		Connection().
+		Parameters("1")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fmt.Println(connAttributes)
+}
