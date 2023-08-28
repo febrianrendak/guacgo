@@ -61,3 +61,11 @@ func (client *Client) NewRequest() *req.Request {
 			return err != nil || resp.StatusCode == 403
 		})
 }
+
+func (client *Client) Datasource() string {
+	return client.tokenData.DataSource
+}
+
+func (client *Client) APIEndpoint() string {
+	return client.apiEndpoint
+}
