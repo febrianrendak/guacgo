@@ -132,6 +132,7 @@ func TestCreateAndUpdateUser(t *testing.T) {
 
 	err = newClient.User().Update(
 		"febrian2@paques.id",
+		"febrian2@paques.id",
 		"febrian2@gmail.com",
 		"Febrian Rendak",
 		"false",
