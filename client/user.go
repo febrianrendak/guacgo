@@ -55,12 +55,12 @@ func (u *User) Create(username, guacEmailAddress, guacFullName, disabled, passwo
 	return
 }
 
-func (u *User) Update(username, guacEmailAddress, guacFullName, disabled, password string) (err error) {
+func (u *User) Update(username, newUsername, guacEmailAddress, guacFullName, disabled, password string) (err error) {
 	_, err = u.NewRequest().
 		SetPathParam("username", username).
 		SetBody(&vars.UserCreate{
 			UserBasic: vars.UserBasic{
-				Username: username,
+				Username: newUsername,
 			},
 			Password: password,
 			Attributes: vars.UserAttributes{
