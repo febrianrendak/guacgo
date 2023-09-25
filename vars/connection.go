@@ -1,9 +1,6 @@
 package vars
 
-type ConnectionParameters struct {
-	Hostname string `json:"hostname"`
-	Port     string `json:"port"`
-}
+type ConnectionParametersMap map[string]string
 
 type ConnectionAttributes struct {
 	MaxConnections        string `json:"max-connections"`
@@ -22,13 +19,13 @@ type ConnectionBasic struct {
 
 type ConnectionCreate struct {
 	ConnectionBasic
-	Parameters ConnectionParameters `json:"parameters"`
+	Parameters ConnectionParametersMap `json:"parameters"`
 }
 
 type Connection struct {
 	ConnectionBasic
-	Identifier        string               `json:"identifier"`
-	ActiveConnections int                  `json:"activeConnections"`
-	LastActive        int                  `json:"lastActive"`
-	Parameters        ConnectionParameters `json:"parameters,omitempty"`
+	Identifier        string                  `json:"identifier"`
+	ActiveConnections int                     `json:"activeConnections"`
+	LastActive        int                     `json:"lastActive"`
+	Parameters        ConnectionParametersMap `json:"parameters,omitempty"`
 }

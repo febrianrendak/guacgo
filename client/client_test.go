@@ -3,6 +3,7 @@ package client_test
 import (
 	"fmt"
 	"github.com/febrianrendak/guacgo/client"
+	"github.com/febrianrendak/guacgo/vars"
 	"github.com/google/uuid"
 	"testing"
 )
@@ -44,6 +45,7 @@ func TestCreateDeleteConnection(t *testing.T) {
 		"192.168.210.171",
 		"4822",
 		"none",
+		make(vars.ConnectionParametersMap),
 	)
 
 	if err != nil {

@@ -29,7 +29,16 @@ func (connection *Connection) List() ([]vars.Connection, map[string]vars.Connect
 	return listOfConnections, mapOfConnections, err
 }
 
-func (connection *Connection) Create(name, parentIdentifier, protocol, hostname, port, guacdHost, guacdPort, guacdEncryption string) (vars.Connection, error) {
+func (connection *Connection) Create(name, parentIdentifier, protocol, hostname, port, guacdHost, guacdPort, guacdEncryption string, optConnectionParams vars.ConnectionParametersMap) (vars.Connection, error) {
+	defaultConnParams := vars.ConnectionParametersMap{
+		"hostname": hostname,
+		"port":     port,
+	}
+
+	for key, val := range optConnectionParams {
+		defaultConnParams[key] = val
+	}
+
 	newConn := vars.Connection{}
 	_, err := connection.
 		NewRequest().
@@ -47,10 +56,7 @@ func (connection *Connection) Create(name, parentIdentifier, protocol, hostname,
 					GuacdEncryption:       guacdEncryption,
 				},
 			},
-			Parameters: vars.ConnectionParameters{
-				Hostname: hostname,
-				Port:     port,
-			},
+			Parameters: defaultConnParams,
 		}).
 		Post("/guacamole/api/session/data/{data-source}/connections")
 
@@ -68,7 +74,16 @@ func (connection *Connection) Details(identifier string) (vars.Connection, error
 	return conn, err
 }
 
-func (connection *Connection) Update(identifier, name, parentIdentifier, protocol, hostname, port, guacdPort, guacdHost, guacdEncryption string) error {
+func (connection *Connection) Update(identifier, name, parentIdentifier, protocol, hostname, port, guacdPort, guacdHost, guacdEncryption string, optConnectionParams vars.ConnectionParametersMap) error {
+	defaultConnParams := vars.ConnectionParametersMap{
+		"hostname": hostname,
+		"port":     port,
+	}
+
+	for key, val := range optConnectionParams {
+		defaultConnParams[key] = val
+	}
+
 	_, err := connection.
 		NewRequest().
 		SetPathParam("identifier", identifier).
@@ -85,10 +100,7 @@ func (connection *Connection) Update(identifier, name, parentIdentifier, protoco
 					GuacdEncryption:       guacdEncryption,
 				},
 			},
-			Parameters: vars.ConnectionParameters{
-				Hostname: hostname,
-				Port:     port,
-			},
+			Parameters: defaultConnParams,
 		}).
 		Put("/guacamole/api/session/data/{data-source}/connections/{identifier}")
 
@@ -104,7 +116,7 @@ func (connection *Connection) Delete(identifier string) error {
 	return err
 }
 
-func (connection *Connection) Parameters(identifier string) (connectionParameters vars.ConnectionParameters, err error) {
+func (connection *Connection) Parameters(identifier string) (connectionParameters vars.ConnectionParametersMap, err error) {
 	_, err = connection.
 		NewRequest().
 		SetSuccessResult(&connectionParameters).
