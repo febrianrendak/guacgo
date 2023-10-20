@@ -18,7 +18,7 @@ func (client *Client) ActiveConnection() *ActiveConnection {
 func (ac *ActiveConnection) List() (activeConnectionList []vars.ActiveConnection, mapOfActiveConnection map[string]vars.ActiveConnection, err error) {
 	_, err = ac.NewRequest().
 		SetSuccessResult(&mapOfActiveConnection).
-		Get("/guacamole/api/session/data/{data-source}/activeConnections")
+		Get("/api/session/data/{data-source}/activeConnections")
 
 	for _, userGroup := range mapOfActiveConnection {
 		activeConnectionList = append(activeConnectionList, userGroup)
@@ -35,7 +35,7 @@ func (ac *ActiveConnection) Kill(identifier string) (err error) {
 				Path: fmt.Sprintf("/%s", identifier),
 			},
 		}).
-		Patch("/guacamole/api/session/data/{data-source}/activeConnections")
+		Patch("/api/session/data/{data-source}/activeConnections")
 
 	return
 }
@@ -52,7 +52,7 @@ func (ac *ActiveConnection) Kills(identifiers []string) (err error) {
 
 	_, err = ac.NewRequest().
 		SetBody(operations).
-		Patch("/guacamole/api/session/data/{data-source}/activeConnections")
+		Patch("/api/session/data/{data-source}/activeConnections")
 
 	return
 }

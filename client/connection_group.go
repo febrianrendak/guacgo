@@ -18,7 +18,7 @@ func (cg *ConnectionGroup) List() (connGroupList []vars.ConnectionGroup, mapOfCo
 
 	_, err = cg.NewRequest().
 		SetSuccessResult(&mapOfConnGroup).
-		Get("/guacamole/api/session/data/{data-source}/connectionGroups")
+		Get("/api/session/data/{data-source}/connectionGroups")
 
 	for _, connGroup := range mapOfConnGroup {
 		connGroupList = append(connGroupList, connGroup)
@@ -31,7 +31,7 @@ func (cg *ConnectionGroup) Tree(identifier string) (connGroupTree vars.Connectio
 	_, err = cg.NewRequest().
 		SetSuccessResult(&connGroupTree).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/connectionGroups/{identifier}/tree")
+		Get("/api/session/data/{data-source}/connectionGroups/{identifier}/tree")
 
 	return
 }
@@ -40,7 +40,7 @@ func (cg *ConnectionGroup) Details(identifier string) (connGroup vars.Connection
 	_, err = cg.NewRequest().
 		SetSuccessResult(&connGroup).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/connectionGroups/{identifier}")
+		Get("/api/session/data/{data-source}/connectionGroups/{identifier}")
 
 	return
 }

@@ -20,7 +20,7 @@ func (connection *Connection) List() ([]vars.Connection, map[string]vars.Connect
 	_, err := connection.
 		NewRequest().
 		SetSuccessResult(&mapOfConnections).
-		Get("/guacamole/api/session/data/{data-source}/connections")
+		Get("/api/session/data/{data-source}/connections")
 
 	for _, conn := range mapOfConnections {
 		listOfConnections = append(listOfConnections, conn)
@@ -58,7 +58,7 @@ func (connection *Connection) Create(name, parentIdentifier, protocol, hostname,
 			},
 			Parameters: defaultConnParams,
 		}).
-		Post("/guacamole/api/session/data/{data-source}/connections")
+		Post("/api/session/data/{data-source}/connections")
 
 	return newConn, err
 }
@@ -69,7 +69,7 @@ func (connection *Connection) Details(identifier string) (vars.Connection, error
 		NewRequest().
 		SetSuccessResult(&conn).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/connections/{identifier}")
+		Get("/api/session/data/{data-source}/connections/{identifier}")
 
 	return conn, err
 }
@@ -102,7 +102,7 @@ func (connection *Connection) Update(identifier, name, parentIdentifier, protoco
 			},
 			Parameters: defaultConnParams,
 		}).
-		Put("/guacamole/api/session/data/{data-source}/connections/{identifier}")
+		Put("/api/session/data/{data-source}/connections/{identifier}")
 
 	return err
 }
@@ -111,7 +111,7 @@ func (connection *Connection) Delete(identifier string) error {
 	_, err := connection.
 		NewRequest().
 		SetPathParam("identifier", identifier).
-		Delete("/guacamole/api/session/data/{data-source}/connections/{identifier}")
+		Delete("/api/session/data/{data-source}/connections/{identifier}")
 
 	return err
 }
@@ -121,7 +121,7 @@ func (connection *Connection) Parameters(identifier string) (connectionParameter
 		NewRequest().
 		SetSuccessResult(&connectionParameters).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/connections/{identifier}/parameters")
+		Get("/api/session/data/{data-source}/connections/{identifier}/parameters")
 
 	return
 }

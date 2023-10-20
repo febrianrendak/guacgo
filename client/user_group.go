@@ -21,7 +21,7 @@ func (ug *UserGroup) List() (userGroupList []vars.UserGroup, mapOfUserGroups map
 
 	_, err = ug.NewRequest().
 		SetSuccessResult(&mapOfUserGroups).
-		Get("/guacamole/api/session/data/{data-source}/userGroups")
+		Get("/api/session/data/{data-source}/userGroups")
 
 	for _, userGroup := range mapOfUserGroups {
 		userGroupList = append(userGroupList, userGroup)
@@ -34,7 +34,7 @@ func (ug *UserGroup) Details(identifier string) (userGroup vars.UserGroup, err e
 	_, err = ug.NewRequest().
 		SetSuccessResult(&userGroup).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/userGroups/{identifier}")
+		Get("/api/session/data/{data-source}/userGroups/{identifier}")
 
 	return
 }
@@ -43,7 +43,7 @@ func (ug *UserGroup) Permissions(identifier string) (userGroupPermissions vars.U
 	_, err = ug.NewRequest().
 		SetSuccessResult(&userGroupPermissions).
 		SetPathParam("identifier", identifier).
-		Get("/guacamole/api/session/data/{data-source}/userGroups/{identifier}/permissions")
+		Get("/api/session/data/{data-source}/userGroups/{identifier}/permissions")
 
 	return
 }
@@ -59,7 +59,7 @@ func (ug *UserGroup) ConnectionOperation(identifier, connectionIdentifier, op st
 				Value: "READ",
 			},
 		}).
-		Patch("/guacamole/api/session/data/{data-source}/userGroups/{identifier}/permissions")
+		Patch("/api/session/data/{data-source}/userGroups/{identifier}/permissions")
 
 	fmt.Println(resp)
 	return

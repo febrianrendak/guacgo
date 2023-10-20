@@ -21,7 +21,7 @@ func (auth *Auth) Token() (vars.TokenResp, error) {
 			"password": auth.password,
 		}).
 		SetSuccessResult(&respJson).
-		Post("/guacamole/api/tokens")
+		Post("/api/tokens")
 
 	return respJson, err
 }
