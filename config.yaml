@@ -1,3 +1,17 @@
-guacamole:
-  username: "guacadmin"
-  password: "guacadmin"
+vm:
+  host: "https://bssn-vms.paques.dev"
+  admin:
+    username: "guacadmin"
+    password: "guacadmin"
+  guacd:
+    hostname: "192.168.210.171"
+    port: "4822"
+  group: "MAIN"
+  connection:
+    group: "ROOT"
+  database:
+    name: "postgres"
+    host: "192.168.210.171"
+    port: 5432
+    username: "postgres"
+    password: "paques123"

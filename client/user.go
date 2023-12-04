@@ -71,6 +71,12 @@ func (u *User) Update(username, newUsername, guacEmailAddress, guacFullName, dis
 		}).
 		Put("/api/session/data/{data-source}/users/{username}")
 
+	if err == nil && username != "" && newUsername != "" {
+		if err = UpdateUsername(username, newUsername); err != nil {
+			return
+		}
+	}
+
 	return
 }
 
